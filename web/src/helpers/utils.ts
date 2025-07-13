@@ -37,3 +37,34 @@ export const downloadFileFromUrl = (url: string, filename: string) => {
   a.click();
   a.remove();
 };
+
+export const exportMemos = async (options: ExportOptions) => {
+  const response = await fetch('/api/v1/memos:export', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(options),
+  });
+
+  if (!response.ok) {
+    throw new Error('Export failed');
+  }
+
+  return response.json();
+};
+
+export const importMemos = async (data: string, options: ImportOptions) => {
+  const response = await fetch('/api/v1/memos:import', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      data: btoa(data), // Base64 encode
+      ...options
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Import failed');
+  }
+
+  return response.json();
+};

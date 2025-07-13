@@ -20,6 +20,7 @@ const SignIn = lazy(() => import("@/pages/SignIn"));
 const SignUp = lazy(() => import("@/pages/SignUp"));
 const UserProfile = lazy(() => import("@/pages/UserProfile"));
 const MemoDetailRedirect = lazy(() => import("./MemoDetailRedirect"));
+const ExportImport = lazy(() => import("@/pages/ExportImport"));
 
 export enum Routes {
   ROOT = "/",
@@ -29,6 +30,7 @@ export enum Routes {
   SETTING = "/setting",
   EXPLORE = "/explore",
   AUTH = "/auth",
+  EXPORT_IMPORT = "/export-import",
 }
 
 const router = createBrowserRouter([
@@ -42,33 +44,33 @@ const router = createBrowserRouter([
           {
             path: "",
             element: (
-              <Suspense fallback={<Loading />}>
-                <SignIn />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <SignIn />
+                </Suspense>
             ),
           },
           {
             path: "admin",
             element: (
-              <Suspense fallback={<Loading />}>
-                <AdminSignIn />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <AdminSignIn />
+                </Suspense>
             ),
           },
           {
             path: "signup",
             element: (
-              <Suspense fallback={<Loading />}>
-                <SignUp />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <SignUp />
+                </Suspense>
             ),
           },
           {
             path: "callback",
             element: (
-              <Suspense fallback={<Loading />}>
-                <AuthCallback />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <AuthCallback />
+                </Suspense>
             ),
           },
         ],
@@ -87,17 +89,17 @@ const router = createBrowserRouter([
               {
                 path: Routes.ARCHIVED,
                 element: (
-                  <Suspense fallback={<Loading />}>
-                    <Archived />
-                  </Suspense>
+                    <Suspense fallback={<Loading />}>
+                      <Archived />
+                    </Suspense>
                 ),
               },
               {
                 path: "u/:username",
                 element: (
-                  <Suspense fallback={<Loading />}>
-                    <UserProfile />
-                  </Suspense>
+                    <Suspense fallback={<Loading />}>
+                      <UserProfile />
+                    </Suspense>
                 ),
               },
             ],
@@ -105,74 +107,82 @@ const router = createBrowserRouter([
           {
             path: Routes.EXPLORE,
             element: (
-              <Suspense fallback={<Loading />}>
-                <Explore />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <Explore />
+                </Suspense>
             ),
           },
           {
             path: Routes.ATTACHMENTS,
             element: (
-              <Suspense fallback={<Loading />}>
-                <Attachments />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <Attachments />
+                </Suspense>
             ),
           },
           {
             path: Routes.INBOX,
             element: (
-              <Suspense fallback={<Loading />}>
-                <Inboxes />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <Inboxes />
+                </Suspense>
             ),
           },
           {
             path: Routes.SETTING,
             element: (
-              <Suspense fallback={<Loading />}>
-                <Setting />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <Setting />
+                </Suspense>
+            ),
+          },
+          {
+            path: Routes.EXPORT_IMPORT,
+            element: (
+                <Suspense fallback={<Loading />}>
+                  <ExportImport />
+                </Suspense>
             ),
           },
           {
             path: "memos/:uid",
             element: (
-              <Suspense fallback={<Loading />}>
-                <MemoDetail />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <MemoDetail />
+                </Suspense>
             ),
           },
           // Redirect old path to new path.
           {
             path: "m/:uid",
             element: (
-              <Suspense fallback={<Loading />}>
-                <MemoDetailRedirect />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <MemoDetailRedirect />
+                </Suspense>
             ),
           },
           {
             path: "403",
             element: (
-              <Suspense fallback={<Loading />}>
-                <PermissionDenied />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <PermissionDenied />
+                </Suspense>
             ),
           },
           {
             path: "404",
             element: (
-              <Suspense fallback={<Loading />}>
-                <NotFound />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <NotFound />
+                </Suspense>
             ),
           },
           {
             path: "*",
             element: (
-              <Suspense fallback={<Loading />}>
-                <NotFound />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <NotFound />
+                </Suspense>
             ),
           },
         ],

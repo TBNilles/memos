@@ -1,0 +1,107 @@
+// Add these message definitions to the end of memo_service.proto
+
+message ExportMemosRequest {
+  // Optional. Format for the export (currently only "json" is supported)
+  string format = 1 [(google.api.field_behavior) = OPTIONAL];
+  
+  // Optional. Filter to apply to memos for export
+  // Uses the same filter format as ListMemosRequest
+  string filter = 2 [(google.api.field_behavior) = OPTIONAL];
+  
+  // Optional. Whether to exclude archived memos from export
+  // Default: false (include archived memos)
+  bool exclude_archived = 3 [(google.api.field_behavior) = OPTIONAL];
+  
+  // Optional. Whether to include attachments in the export
+  // Default: true
+  bool include_attachments = 4 [(google.api.field_behavior) = OPTIONAL];
+  
+  // Optional. Whether to include memo relations in the export
+  // Default: true
+  bool include_relations = 5 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message ExportMemosResponse {
+  // The exported data as bytes
+  bytes data = 1;
+  
+  // The format of the exported data
+  string format = 2;
+  
+  // Suggested filename for the export
+  string filename = 3;
+  
+  // Number of memos exported
+  int32 memo_count = 4;
+  
+  // Size of the export data in bytes
+  int64 size_bytes = 5;
+}
+
+message ImportMemosRequest {
+  // Required. The data to import (JSON format)
+  bytes data = 1 [(google.api.field_behavior) = REQUIRED];
+  
+  // Optional. Format of the import data (currently only "json" is supported)
+  string format = 2 [(google.api.field_behavior) = OPTIONAL];
+  
+  // Optional. Whether to overwrite existing memos with the same UID
+  // Default: false (skip existing memos)
+  bool overwrite_existing = 3 [(google.api.field_behavior) = OPTIONAL];
+  
+  // Optional. Whether to validate only (dry run mode)
+  // If true, the import will be validated but no data will be created
+  bool validate_only = 4 [(google.api.field_behavior) = OPTIONAL];
+  
+  // Optional. Whether to preserve original timestamps
+  // Default: true
+  bool preserve_timestamps = 5 [(google.api.field_behavior) = OPTIONAL];
+  
+  // Optional. Whether to skip importing attachments
+  // Default: false (import attachments if present)
+  bool skip_attachments = 6 [(google.api.field_behavior) = OPTIONAL];
+  
+  // Optional. Whether to skip importing memo relations
+  // Default: false (import relations if present)
+  bool skip_relations = 7 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message ImportMemosResponse {
+  // Number of memos successfully imported
+  int32 imported_count = 1;
+  
+  // Number of memos skipped (due to errors or existing UIDs)
+  int32 skipped_count = 2;
+  
+  // Number of memos that failed validation (in validate_only mode)
+  int32 validation_errors = 3;
+  
+  // List of error messages for failed imports
+  repeated string errors = 4;
+  
+  // List of warning messages for potential issues
+  repeated string warnings = 5;
+  
+  // Summary of the import operation
+  ImportSummary summary = 6;
+}
+
+message ImportSummary {
+  // Total number of memos in the import data
+  int32 total_memos = 1;
+  
+  // Number of new memos created
+  int32 created_count = 2;
+  
+  // Number of existing memos updated
+  int32 updated_count = 3;
+  
+  // Number of attachments imported
+  int32 attachments_imported = 4;
+  
+  // Number of relations imported
+  int32 relations_imported = 5;
+  
+  // Import duration in milliseconds
+  int64 duration_ms = 6;
+}

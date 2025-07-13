@@ -493,6 +493,106 @@ export interface DeleteMemoReactionRequest {
   name: string;
 }
 
+export interface ExportMemosRequest {
+  /** Optional. Format for the export (currently only "json" is supported) */
+  format: string;
+  /**
+   * Optional. Filter to apply to memos for export
+   * Uses the same filter format as ListMemosRequest
+   */
+  filter: string;
+  /**
+   * Optional. Whether to exclude archived memos from export
+   * Default: false (include archived memos)
+   */
+  excludeArchived: boolean;
+  /**
+   * Optional. Whether to include attachments in the export
+   * Default: true
+   */
+  includeAttachments: boolean;
+  /**
+   * Optional. Whether to include memo relations in the export
+   * Default: true
+   */
+  includeRelations: boolean;
+}
+
+export interface ExportMemosResponse {
+  /** The exported data as bytes */
+  data: Uint8Array;
+  /** The format of the exported data */
+  format: string;
+  /** Suggested filename for the export */
+  filename: string;
+  /** Number of memos exported */
+  memoCount: number;
+  /** Size of the export data in bytes */
+  sizeBytes: number;
+}
+
+export interface ImportMemosRequest {
+  /** Required. The data to import (JSON format) */
+  data: Uint8Array;
+  /** Optional. Format of the import data (currently only "json" is supported) */
+  format: string;
+  /**
+   * Optional. Whether to overwrite existing memos with the same UID
+   * Default: false (skip existing memos)
+   */
+  overwriteExisting: boolean;
+  /**
+   * Optional. Whether to validate only (dry run mode)
+   * If true, the import will be validated but no data will be created
+   */
+  validateOnly: boolean;
+  /**
+   * Optional. Whether to preserve original timestamps
+   * Default: true
+   */
+  preserveTimestamps: boolean;
+  /**
+   * Optional. Whether to skip importing attachments
+   * Default: false (import attachments if present)
+   */
+  skipAttachments: boolean;
+  /**
+   * Optional. Whether to skip importing memo relations
+   * Default: false (import relations if present)
+   */
+  skipRelations: boolean;
+}
+
+export interface ImportMemosResponse {
+  /** Number of memos successfully imported */
+  importedCount: number;
+  /** Number of memos skipped (due to errors or existing UIDs) */
+  skippedCount: number;
+  /** Number of memos that failed validation (in validate_only mode) */
+  validationErrors: number;
+  /** List of error messages for failed imports */
+  errors: string[];
+  /** List of warning messages for potential issues */
+  warnings: string[];
+  /** Summary of the import operation */
+  summary?: ImportSummary | undefined;
+}
+
+export interface ImportSummary {
+  /** Total number of memos in the import data */
+  totalMemos: number;
+  /** Number of new memos created */
+  createdCount: number;
+  /** Number of existing memos updated */
+  updatedCount: number;
+  /** Number of attachments imported */
+  attachmentsImported: number;
+  /** Number of relations imported */
+  relationsImported: number;
+  /** Import duration in milliseconds */
+  durationMs: number;
+}
+
 function createBaseReaction(): Reaction {
   return { name: "", creator: "", contentId: "", reactionType: "", createTime: undefined };
 }
@@ -2627,6 +2727,541 @@ export const DeleteMemoReactionRequest: MessageFns<DeleteMemoReactionRequest> = 
   },
 };
 
+function createBaseExportMemosRequest(): ExportMemosRequest {
+  return { format: "", filter: "", excludeArchived: false, includeAttachments: false, includeRelations: false };
+}
+
+export const ExportMemosRequest: MessageFns<ExportMemosRequest> = {
+  encode(message: ExportMemosRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.format !== "") {
+      writer.uint32(10).string(message.format);
+    }
+    if (message.filter !== "") {
+      writer.uint32(18).string(message.filter);
+    }
+    if (message.excludeArchived !== false) {
+      writer.uint32(24).bool(message.excludeArchived);
+    }
+    if (message.includeAttachments !== false) {
+      writer.uint32(32).bool(message.includeAttachments);
+    }
+    if (message.includeRelations !== false) {
+      writer.uint32(40).bool(message.includeRelations);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ExportMemosRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseExportMemosRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.format = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.filter = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 24) {
+            break;
+          }
+
+          message.excludeArchived = reader.bool();
+          continue;
+        }
+        case 4: {
+          if (tag !== 32) {
+            break;
+          }
+
+          message.includeAttachments = reader.bool();
+          continue;
+        }
+        case 5: {
+          if (tag !== 40) {
+            break;
+          }
+
+          message.includeRelations = reader.bool();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  create(base?: DeepPartial<ExportMemosRequest>): ExportMemosRequest {
+    return ExportMemosRequest.fromPartial(base ?? {});
+  },
+  fromPartial(object: DeepPartial<ExportMemosRequest>): ExportMemosRequest {
+    const message = createBaseExportMemosRequest();
+    message.format = object.format ?? "";
+    message.filter = object.filter ?? "";
+    message.excludeArchived = object.excludeArchived ?? false;
+    message.includeAttachments = object.includeAttachments ?? false;
+    message.includeRelations = object.includeRelations ?? false;
+    return message;
+  },
+};
+
+function createBaseExportMemosResponse(): ExportMemosResponse {
+  return { data: new Uint8Array(0), format: "", filename: "", memoCount: 0, sizeBytes: 0 };
+}
+
+export const ExportMemosResponse: MessageFns<ExportMemosResponse> = {
+  encode(message: ExportMemosResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.data.length !== 0) {
+      writer.uint32(10).bytes(message.data);
+    }
+    if (message.format !== "") {
+      writer.uint32(18).string(message.format);
+    }
+    if (message.filename !== "") {
+      writer.uint32(26).string(message.filename);
+    }
+    if (message.memoCount !== 0) {
+      writer.uint32(32).int32(message.memoCount);
+    }
+    if (message.sizeBytes !== 0) {
+      writer.uint32(40).int64(message.sizeBytes);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ExportMemosResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseExportMemosResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.data = reader.bytes();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.format = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 26) {
+            break;
+          }
+
+          message.filename = reader.string();
+          continue;
+        }
+        case 4: {
+          if (tag !== 32) {
+            break;
+          }
+
+          message.memoCount = reader.int32();
+          continue;
+        }
+        case 5: {
+          if (tag !== 40) {
+            break;
+          }
+
+          message.sizeBytes = longToNumber(reader.int64());
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  create(base?: DeepPartial<ExportMemosResponse>): ExportMemosResponse {
+    return ExportMemosResponse.fromPartial(base ?? {});
+  },
+  fromPartial(object: DeepPartial<ExportMemosResponse>): ExportMemosResponse {
+    const message = createBaseExportMemosResponse();
+    message.data = object.data ?? new Uint8Array(0);
+    message.format = object.format ?? "";
+    message.filename = object.filename ?? "";
+    message.memoCount = object.memoCount ?? 0;
+    message.sizeBytes = object.sizeBytes ?? 0;
+    return message;
+  },
+};
+
+function createBaseImportMemosRequest(): ImportMemosRequest {
+  return {
+    data: new Uint8Array(0),
+    format: "",
+    overwriteExisting: false,
+    validateOnly: false,
+    preserveTimestamps: false,
+    skipAttachments: false,
+    skipRelations: false,
+  };
+}
+
+export const ImportMemosRequest: MessageFns<ImportMemosRequest> = {
+  encode(message: ImportMemosRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.data.length !== 0) {
+      writer.uint32(10).bytes(message.data);
+    }
+    if (message.format !== "") {
+      writer.uint32(18).string(message.format);
+    }
+    if (message.overwriteExisting !== false) {
+      writer.uint32(24).bool(message.overwriteExisting);
+    }
+    if (message.validateOnly !== false) {
+      writer.uint32(32).bool(message.validateOnly);
+    }
+    if (message.preserveTimestamps !== false) {
+      writer.uint32(40).bool(message.preserveTimestamps);
+    }
+    if (message.skipAttachments !== false) {
+      writer.uint32(48).bool(message.skipAttachments);
+    }
+    if (message.skipRelations !== false) {
+      writer.uint32(56).bool(message.skipRelations);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ImportMemosRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseImportMemosRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.data = reader.bytes();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.format = reader.string();
+          continue;
+        }
+        case 3: {
+          if (tag !== 24) {
+            break;
+          }
+
+          message.overwriteExisting = reader.bool();
+          continue;
+        }
+        case 4: {
+          if (tag !== 32) {
+            break;
+          }
+
+          message.validateOnly = reader.bool();
+          continue;
+        }
+        case 5: {
+          if (tag !== 40) {
+            break;
+          }
+
+          message.preserveTimestamps = reader.bool();
+          continue;
+        }
+        case 6: {
+          if (tag !== 48) {
+            break;
+          }
+
+          message.skipAttachments = reader.bool();
+          continue;
+        }
+        case 7: {
+          if (tag !== 56) {
+            break;
+          }
+
+          message.skipRelations = reader.bool();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  create(base?: DeepPartial<ImportMemosRequest>): ImportMemosRequest {
+    return ImportMemosRequest.fromPartial(base ?? {});
+  },
+  fromPartial(object: DeepPartial<ImportMemosRequest>): ImportMemosRequest {
+    const message = createBaseImportMemosRequest();
+    message.data = object.data ?? new Uint8Array(0);
+    message.format = object.format ?? "";
+    message.overwriteExisting = object.overwriteExisting ?? false;
+    message.validateOnly = object.validateOnly ?? false;
+    message.preserveTimestamps = object.preserveTimestamps ?? false;
+    message.skipAttachments = object.skipAttachments ?? false;
+    message.skipRelations = object.skipRelations ?? false;
+    return message;
+  },
+};
+
+function createBaseImportMemosResponse(): ImportMemosResponse {
+  return { importedCount: 0, skippedCount: 0, validationErrors: 0, errors: [], warnings: [], summary: undefined };
+}
+
+export const ImportMemosResponse: MessageFns<ImportMemosResponse> = {
+  encode(message: ImportMemosResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.importedCount !== 0) {
+      writer.uint32(8).int32(message.importedCount);
+    }
+    if (message.skippedCount !== 0) {
+      writer.uint32(16).int32(message.skippedCount);
+    }
+    if (message.validationErrors !== 0) {
+      writer.uint32(24).int32(message.validationErrors);
+    }
+    for (const v of message.errors) {
+      writer.uint32(34).string(v!);
+    }
+    for (const v of message.warnings) {
+      writer.uint32(42).string(v!);
+    }
+    if (message.summary !== undefined) {
+      ImportSummary.encode(message.summary, writer.uint32(50).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ImportMemosResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseImportMemosResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.importedCount = reader.int32();
+          continue;
+        }
+        case 2: {
+          if (tag !== 16) {
+            break;
+          }
+
+          message.skippedCount = reader.int32();
+          continue;
+        }
+        case 3: {
+          if (tag !== 24) {
+            break;
+          }
+
+          message.validationErrors = reader.int32();
+          continue;
+        }
+        case 4: {
+          if (tag !== 34) {
+            break;
+          }
+
+          message.errors.push(reader.string());
+          continue;
+        }
+        case 5: {
+          if (tag !== 42) {
+            break;
+          }
+
+          message.warnings.push(reader.string());
+          continue;
+        }
+        case 6: {
+          if (tag !== 50) {
+            break;
+          }
+
+          message.summary = ImportSummary.decode(reader, reader.uint32());
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  create(base?: DeepPartial<ImportMemosResponse>): ImportMemosResponse {
+    return ImportMemosResponse.fromPartial(base ?? {});
+  },
+  fromPartial(object: DeepPartial<ImportMemosResponse>): ImportMemosResponse {
+    const message = createBaseImportMemosResponse();
+    message.importedCount = object.importedCount ?? 0;
+    message.skippedCount = object.skippedCount ?? 0;
+    message.validationErrors = object.validationErrors ?? 0;
+    message.errors = object.errors?.map((e) => e) || [];
+    message.warnings = object.warnings?.map((e) => e) || [];
+    message.summary = (object.summary !== undefined && object.summary !== null)
+      ? ImportSummary.fromPartial(object.summary)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseImportSummary(): ImportSummary {
+  return {
+    totalMemos: 0,
+    createdCount: 0,
+    updatedCount: 0,
+    attachmentsImported: 0,
+    relationsImported: 0,
+    durationMs: 0,
+  };
+}
+
+export const ImportSummary: MessageFns<ImportSummary> = {
+  encode(message: ImportSummary, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.totalMemos !== 0) {
+      writer.uint32(8).int32(message.totalMemos);
+    }
+    if (message.createdCount !== 0) {
+      writer.uint32(16).int32(message.createdCount);
+    }
+    if (message.updatedCount !== 0) {
+      writer.uint32(24).int32(message.updatedCount);
+    }
+    if (message.attachmentsImported !== 0) {
+      writer.uint32(32).int32(message.attachmentsImported);
+    }
+    if (message.relationsImported !== 0) {
+      writer.uint32(40).int32(message.relationsImported);
+    }
+    if (message.durationMs !== 0) {
+      writer.uint32(48).int64(message.durationMs);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): ImportSummary {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseImportSummary();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.totalMemos = reader.int32();
+          continue;
+        }
+        case 2: {
+          if (tag !== 16) {
+            break;
+          }
+
+          message.createdCount = reader.int32();
+          continue;
+        }
+        case 3: {
+          if (tag !== 24) {
+            break;
+          }
+
+          message.updatedCount = reader.int32();
+          continue;
+        }
+        case 4: {
+          if (tag !== 32) {
+            break;
+          }
+
+          message.attachmentsImported = reader.int32();
+          continue;
+        }
+        case 5: {
+          if (tag !== 40) {
+            break;
+          }
+
+          message.relationsImported = reader.int32();
+          continue;
+        }
+        case 6: {
+          if (tag !== 48) {
+            break;
+          }
+
+          message.durationMs = longToNumber(reader.int64());
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  create(base?: DeepPartial<ImportSummary>): ImportSummary {
+    return ImportSummary.fromPartial(base ?? {});
+  },
+  fromPartial(object: DeepPartial<ImportSummary>): ImportSummary {
+    const message = createBaseImportSummary();
+    message.totalMemos = object.totalMemos ?? 0;
+    message.createdCount = object.createdCount ?? 0;
+    message.updatedCount = object.updatedCount ?? 0;
+    message.attachmentsImported = object.attachmentsImported ?? 0;
+    message.relationsImported = object.relationsImported ?? 0;
+    message.durationMs = object.durationMs ?? 0;
+    return message;
+  },
+};
+
 export type MemoServiceDefinition = typeof MemoServiceDefinition;
 export const MemoServiceDefinition = {
   name: "MemoService",
@@ -3497,6 +4132,90 @@ export const MemoServiceDefinition = {
         },
       },
     },
+    /** ExportMemos exports memos for the current user */
+    exportMemos: {
+      name: "ExportMemos",
+      requestType: ExportMemosRequest,
+      requestStream: false,
+      responseType: ExportMemosResponse,
+      responseStream: false,
+      options: {
+        _unknownFields: {
+          578365826: [
+            new Uint8Array([
+              25,
+              58,
+              1,
+              42,
+              34,
+              20,
+              47,
+              97,
+              112,
+              105,
+              47,
+              118,
+              49,
+              47,
+              109,
+              101,
+              109,
+              111,
+              115,
+              58,
+              101,
+              120,
+              112,
+              111,
+              114,
+              116,
+            ]),
+          ],
+        },
+      },
+    },
+    /** ImportMemos imports memos from provided data */
+    importMemos: {
+      name: "ImportMemos",
+      requestType: ImportMemosRequest,
+      requestStream: false,
+      responseType: ImportMemosResponse,
+      responseStream: false,
+      options: {
+        _unknownFields: {
+          578365826: [
+            new Uint8Array([
+              25,
+              58,
+              1,
+              42,
+              34,
+              20,
+              47,
+              97,
+              112,
+              105,
+              47,
+              118,
+              49,
+              47,
+              109,
+              101,
+              109,
+              111,
+              115,
+              58,
+              105,
+              109,
+              112,
+              111,
+              114,
+              116,
+            ]),
+          ],
+        },
+      },
+    },
   },
 } as const;
 
@@ -3518,6 +4237,17 @@ function fromTimestamp(t: Timestamp): Date {
   let millis = (t.seconds || 0) * 1_000;
   millis += (t.nanos || 0) / 1_000_000;
   return new globalThis.Date(millis);
+}
+
+function longToNumber(int64: { toString(): string }): number {
+  const num = globalThis.Number(int64.toString());
+  if (num > globalThis.Number.MAX_SAFE_INTEGER) {
+    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+  }
+  if (num < globalThis.Number.MIN_SAFE_INTEGER) {
+    throw new globalThis.Error("Value is smaller than Number.MIN_SAFE_INTEGER");
+  }
+  return num;
 }
 
 export interface MessageFns<T> {

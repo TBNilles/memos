@@ -1,1 +1,94 @@
-web/node_modules
+# Git
+.git
+.gitignore
+.gitattributes
+.github/
+
+# Documentation
+*.md
+!README.md
+CODEOWNERS
+LICENSE
+
+# Development files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Go
+# These are handled by go mod
+vendor/
+
+# Node.js
+web/node_modules/
+web/.next/
+web/dist/
+web/build/
+web/*.log
+web/.env.local
+web/.env.development.local
+web/.env.test.local
+web/.env.production.local
+
+# Build artifacts
+# Note: Keep bin/ for source code, but exclude built binaries
+dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Coverage
+*.cover
+*.coverprofile
+coverage.txt
+coverage.html
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# IDE
+*.iml
+.project
+.classpath
+.settings/
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# CI/CD
+.travis.yml
+.circleci/
+.github/workflows/
+Jenkinsfile
+
+# Logs
+*.log
+
+# Database files (if any)
+*.db
+*.sqlite
+*.sqlite3
+
+# Configuration
+.env
+.env.*
+config.yaml
+config.json
+
+# Scripts
+scripts/
