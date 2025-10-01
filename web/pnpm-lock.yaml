@@ -193,8 +193,8 @@ importers:
         specifier: ^4.6.0
         version: 4.6.0(vite@7.0.1(@types/node@24.0.10)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1))
       code-inspector-plugin:
-        specifier: ^0.18.3
-        version: 0.18.3
+        specifier: ^1.2.10
+        version: 1.2.10
       eslint:
         specifier: ^9.30.1
         version: 9.30.1(jiti@2.4.2)
@@ -303,6 +303,11 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
+  '@babel/parser@7.28.4':
+    resolution: {integrity: sha512-yZbBqeM6TkpP9du/I2pUZnJsRMGGvOuIrhjzC1AwHwW+6he4mni6Bp/m8ijn0iOuZuPI2BfkCoSRunpyjnrQKg==}
+    engines: {node: '>=6.0.0'}
+    hasBin: true
+
   '@babel/plugin-transform-react-jsx-self@7.27.1':
     resolution: {integrity: sha512-6UzkCs+ejGdZ5mFFC/OCUrv028ab2fp1znZmCZjAOBKiBK2jXD1O+BPSfX8X2qjJ75fZBMSnQn3Rq2mrBJK2mw==}
     engines: {node: '>=6.9.0'}
@@ -331,6 +336,10 @@ packages:
     resolution: {integrity: sha512-jYnje+JyZG5YThjHiF28oT4SIZLnYOcSBb6+SDaFIyzDVSkXQmQQYclJ2R+YxcdmK0AX6x1E5OQNtuh3jHDrUg==}
     engines: {node: '>=6.9.0'}
 
+  '@babel/types@7.28.4':
+    resolution: {integrity: sha512-bkFqkLhh3pMBUQQkpVgWDWq/lqzc2678eUyDlTBhRqhCHFguYYGM0Efga7tYk4TogG/3x0EEl66/OQ+WGbWB/Q==}
+    engines: {node: '>=6.9.0'}
+
   '@braintree/sanitize-url@7.1.1':
     resolution: {integrity: sha512-i1L7noDNxtFyL5DmZafWy1wRVhGehQmzZaz1HiN5e7iylJMSZR7ekOV7NsIqa5qBldlLrsKv4HbgFUVlQrz8Mw==}
 
@@ -351,6 +360,24 @@ packages:
 
   '@chevrotain/utils@11.0.3':
     resolution: {integrity: sha512-YslZMgtJUyuMbZ+aKvfF3x1f5liK4mWNxghFRv7jqRR9C3R3fAOGTTKvxXDa2Y1s9zSbcpuO0cAxDYsc9SrXoQ==}
+
+  '@code-inspector/core@1.2.10':
+    resolution: {integrity: sha512-xTkR4oBrTlRA/S2cXTuZLttCX6+wQgUpBpEK4Ad/e9KBIUIDRne5yoxuvrdy3xkTMkURS2V4SnCTzjFcu4OELQ==}
+
+  '@code-inspector/esbuild@1.2.10':
+    resolution: {integrity: sha512-+Y7tJTGrqpOgj4ENiq2pE9lE88pFGIumAFJr3K4jZxCT/JD/8bsQvOnNBEBS8BzwWZP6jK/XlaR/YFmw9p3r1A==}
+
+  '@code-inspector/mako@1.2.10':
+    resolution: {integrity: sha512-IqQt6bdAF1emG47NJntxE+v4m+GUVOmyXjveP/bCUJ0L7yab48H9qsAPyEUtwBSbXGDopvCX0PgQeaubWpS1LQ==}
+
+  '@code-inspector/turbopack@1.2.10':
+    resolution: {integrity: sha512-6oMeQjaDorIcAiy1IEPzrtozqfgzE2xq6AMc1/gVU44XqYnFZgUTyz5chkpPE1SQ+ZQ+EtgYGJyL6oYAQ0oyZQ==}
+
+  '@code-inspector/vite@1.2.10':
+    resolution: {integrity: sha512-HsmEa0kIfJUhJf4zjipDFgySKAD/O/f+K2L49xUnAelO6bkhNGmg1QLur9Mzn+5vrKcCGLwa0LGwKVnuBE4Vng==}
+
+  '@code-inspector/webpack@1.2.10':
+    resolution: {integrity: sha512-7TaYwAiz+ZlckVyKsU24HXghTuYV04mtwtJCIenkLfUSyrEIjUC/rhoYnQ/nUVwWuk0LvWJHUaLlYc65oQsggQ==}
 
   '@dnd-kit/accessibility@3.1.1':
     resolution: {integrity: sha512-2P+YgaXF+gRsIihwwY1gCsQSYnu9Zyj2py8kY5fFvUM1qm2WA2u639R6YNVfU4GWr+ZM5mqEsfHZZLoRONbemw==}
@@ -1560,14 +1587,14 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0-beta.0
 
-  '@vue/compiler-core@3.5.17':
-    resolution: {integrity: sha512-Xe+AittLbAyV0pabcN7cP7/BenRBNcteM4aSDCtRvGw0d9OL+HG1u/XHLY/kt1q4fyMeZYXyIYrsHuPSiDPosA==}
+  '@vue/compiler-core@3.5.22':
+    resolution: {integrity: sha512-jQ0pFPmZwTEiRNSb+i9Ow/I/cHv2tXYqsnHKKyCQ08irI2kdF5qmYedmF8si8mA7zepUFmJ2hqzS8CQmNOWOkQ==}
 
-  '@vue/compiler-dom@3.5.17':
-    resolution: {integrity: sha512-+2UgfLKoaNLhgfhV5Ihnk6wB4ljyW1/7wUIog2puUqajiC29Lp5R/IKDdkebh9jTbTogTbsgB+OY9cEWzG95JQ==}
+  '@vue/compiler-dom@3.5.22':
+    resolution: {integrity: sha512-W8RknzUM1BLkypvdz10OVsGxnMAuSIZs9Wdx1vzA3mL5fNMN15rhrSCLiTm6blWeACwUwizzPVqGJgOGBEN/hA==}
 
-  '@vue/shared@3.5.17':
-    resolution: {integrity: sha512-CabR+UN630VnsJO/jHWYBC1YVXyMq94KKp6iF5MQgZJs5I8cmjw6oVMO1oDbtBkENSHSSn/UadWlW/OAgdmKrg==}
+  '@vue/shared@3.5.22':
+    resolution: {integrity: sha512-F4yc6palwq3TT0u+FYf0Ns4Tfl9GRFURDN2gWG7L1ecIaS/4fCIuFOjMTnCyjsu/OK6vaDKLCrGAa+KvvH+h4w==}
 
   '@xobotyi/scrollbar-width@1.9.5':
     resolution: {integrity: sha512-N8tkAACJx2ww8vFMneJmaAgmjAG1tnVBZJRLRcx061tmsLRZHSEZSLuGWnwPtunsSLvSqXQ2wfp7Mgqg1I+2dQ==}
@@ -1726,11 +1753,8 @@ packages:
       react: ^18 || ^19 || ^19.0.0-rc
       react-dom: ^18 || ^19 || ^19.0.0-rc
 
-  code-inspector-core@0.18.3:
-    resolution: {integrity: sha512-60pT2cPoguMTUYdN1MMpjoPUnuF0ud/u7M2y+Vqit/bniLEit9dySEWAVxLU/Ukc5ILrDeLKEttc6fCMl9RUrA==}
-
-  code-inspector-plugin@0.18.3:
-    resolution: {integrity: sha512-d9oJXZUsnvfTaQDwFmDNA2F+AR/TXIxWg1rr8KGcEskltR2prbZsfuu1z70EAn4khpx0smfi/PvIIwNJQ7FAMw==}
+  code-inspector-plugin@1.2.10:
+    resolution: {integrity: sha512-XF8U0egv6g19lU4QZcrPu40HmooyHjcIqaKb6fvIPSv8WUeg+qSlyrl7Bm05OBzMmJt/Y/mOdFx8MMuBqbC8Sg==}
 
   color-convert@2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
@@ -1986,6 +2010,15 @@ packages:
       supports-color:
         optional: true
 
+  debug@4.4.3:
+    resolution: {integrity: sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
 
@@ -2070,9 +2103,6 @@ packages:
   es-to-primitive@1.3.0:
     resolution: {integrity: sha512-w+5mJ3GuFL+NjVtJlvydShqE1eN3h3PbI7/5LAsYJP/2qtuMXjfL2LpHSRqo4b4eSF5K/DH1JXKUAHSB2UW50g==}
     engines: {node: '>= 0.4'}
-
-  esbuild-code-inspector-plugin@0.18.3:
-    resolution: {integrity: sha512-FaPt5eFMtW1oXMWqAcqfAJByNagP1V/R9dwDDLQO29JmryMF35+frskTqy+G53whmTaVi19+TCrFqhNbMZH5ZQ==}
 
   esbuild@0.25.5:
     resolution: {integrity: sha512-P8OtKZRv/5J5hhz0cUAdu/cLuPIKXpQl1R9pZtvmHWQvrAUVd0UNIPT4IB4W3rNOqVO0rlqHmCIbSwxh/c9yUQ==}
@@ -2580,8 +2610,8 @@ packages:
     resolution: {integrity: sha512-QJv/h939gDpvT+9SiLVlY7tZC3xB2qK57v0J04Sh9wpMb6MP1q8gB21L3WIo8T5P1MSMg3Ep14L7KkDCFG3y4w==}
     engines: {node: '>=16.0.0'}
 
-  launch-ide@1.0.1:
-    resolution: {integrity: sha512-U7qBxSNk774PxWq4XbmRe0ThiIstPoa4sMH/OGSYxrFVvg8x3biXcF1fsH6wasDpEmEXMdINUrQhBdwsSgKyMg==}
+  launch-ide@1.2.0:
+    resolution: {integrity: sha512-7nXSPQOt3b2JT52Ge8jp4miFcY+nrUEZxNLWBzrEfjmByDTb9b5ytqMSwGhsNwY6Cntwop+6n7rWIFN0+S8PTw==}
 
   layout-base@1.0.2:
     resolution: {integrity: sha512-8h2oVEZNktL4BH2JCOI90iD1yXwL6iNW7KcCKT2QZgQJR2vbqDsldCTPRU9NifTCqHZci57XvQQ15YTu+sTYPg==}
@@ -2885,8 +2915,8 @@ packages:
   points-on-path@0.2.1:
     resolution: {integrity: sha512-25ClnWWuw7JbWZcgqY/gJ4FQWadKxGWk+3kR/7kD0tCaDtPPMj7oHu2ToLaVhfpnHrZzYby2w6tUA0eOIuUg8g==}
 
-  portfinder@1.0.37:
-    resolution: {integrity: sha512-yuGIEjDAYnnOex9ddMnKZEMFE0CcGo6zbfzDklkmT1m5z734ss6JMzN9rNB3+RR7iS+F10D4/BVIaXOyh8PQKw==}
+  portfinder@1.0.38:
+    resolution: {integrity: sha512-rEwq/ZHlJIKw++XtLAO8PPuOQA/zaPJOZJ37BVuN97nLpMJeuDVLVGRwbFoBgLudgdTMP2hdRJP++H+8QOA3vg==}
     engines: {node: '>= 10.12'}
 
   possible-typed-array-names@1.1.0:
@@ -3392,9 +3422,6 @@ packages:
     resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
     hasBin: true
 
-  vite-code-inspector-plugin@0.18.3:
-    resolution: {integrity: sha512-178H73vbDUHE+JpvfAfioUHlUr7qXCYIEa2YNXtzenFQGOjtae59P1jjcxGfa6pPHEnOoaitb13K+0qxwhi/WA==}
-
   vite@7.0.1:
     resolution: {integrity: sha512-BiKOQoW5HGR30E6JDeNsati6HnSPMVEKbkIWbCiol+xKeu3g5owrjy7kbk/QEMuzCV87dSUTvycYKmlcfGKq3Q==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -3458,9 +3485,6 @@ packages:
 
   vscode-uri@3.0.8:
     resolution: {integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==}
-
-  webpack-code-inspector-plugin@0.18.3:
-    resolution: {integrity: sha512-3782rsJhBnRiw0IpR6EqnyGDQoiSq0CcGeLJ52rZXlszYCe8igXtcujq7OhI0byaivWQ1LW7sXKyMEoVpBhq0w==}
 
   which-boxed-primitive@1.1.1:
     resolution: {integrity: sha512-TbX3mj8n0odCBFVlY8AxkqcHASw3L60jIuF8jFP78az3C2YhmGvqbHBpAjTRH2/xqYunrJ9g1jSyjCjpoWzIAA==}
@@ -3607,6 +3631,10 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.0
 
+  '@babel/parser@7.28.4':
+    dependencies:
+      '@babel/types': 7.28.4
+
   '@babel/plugin-transform-react-jsx-self@7.27.1(@babel/core@7.28.0)':
     dependencies:
       '@babel/core': 7.28.0
@@ -3642,6 +3670,11 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
 
+  '@babel/types@7.28.4':
+    dependencies:
+      '@babel/helper-string-parser': 7.27.1
+      '@babel/helper-validator-identifier': 7.27.1
+
   '@braintree/sanitize-url@7.1.1': {}
 
   '@bufbuild/protobuf@2.6.0': {}
@@ -3662,6 +3695,48 @@ snapshots:
   '@chevrotain/types@11.0.3': {}
 
   '@chevrotain/utils@11.0.3': {}
+
+  '@code-inspector/core@1.2.10':
+    dependencies:
+      '@vue/compiler-dom': 3.5.22
+      chalk: 4.1.2
+      dotenv: 16.6.1
+      launch-ide: 1.2.0
+      portfinder: 1.0.38
+    transitivePeerDependencies:
+      - supports-color
+
+  '@code-inspector/esbuild@1.2.10':
+    dependencies:
+      '@code-inspector/core': 1.2.10
+    transitivePeerDependencies:
+      - supports-color
+
+  '@code-inspector/mako@1.2.10':
+    dependencies:
+      '@code-inspector/core': 1.2.10
+    transitivePeerDependencies:
+      - supports-color
+
+  '@code-inspector/turbopack@1.2.10':
+    dependencies:
+      '@code-inspector/core': 1.2.10
+      '@code-inspector/webpack': 1.2.10
+    transitivePeerDependencies:
+      - supports-color
+
+  '@code-inspector/vite@1.2.10':
+    dependencies:
+      '@code-inspector/core': 1.2.10
+      chalk: 4.1.1
+    transitivePeerDependencies:
+      - supports-color
+
+  '@code-inspector/webpack@1.2.10':
+    dependencies:
+      '@code-inspector/core': 1.2.10
+    transitivePeerDependencies:
+      - supports-color
 
   '@dnd-kit/accessibility@3.1.1(react@18.3.1)':
     dependencies:
@@ -4775,7 +4850,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/tsconfig-utils': 8.35.1(typescript@5.8.3)
       '@typescript-eslint/types': 8.35.1
-      debug: 4.4.1
+      debug: 4.4.3
       typescript: 5.8.3
     transitivePeerDependencies:
       - supports-color
@@ -4846,20 +4921,20 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vue/compiler-core@3.5.17':
+  '@vue/compiler-core@3.5.22':
     dependencies:
-      '@babel/parser': 7.28.0
-      '@vue/shared': 3.5.17
+      '@babel/parser': 7.28.4
+      '@vue/shared': 3.5.22
       entities: 4.5.0
       estree-walker: 2.0.2
       source-map-js: 1.2.1
 
-  '@vue/compiler-dom@3.5.17':
+  '@vue/compiler-dom@3.5.22':
     dependencies:
-      '@vue/compiler-core': 3.5.17
-      '@vue/shared': 3.5.17
+      '@vue/compiler-core': 3.5.22
+      '@vue/shared': 3.5.22
 
-  '@vue/shared@3.5.17': {}
+  '@vue/shared@3.5.22': {}
 
   '@xobotyi/scrollbar-width@1.9.5': {}
 
@@ -5056,24 +5131,15 @@ snapshots:
       - '@types/react'
       - '@types/react-dom'
 
-  code-inspector-core@0.18.3:
+  code-inspector-plugin@1.2.10:
     dependencies:
-      '@vue/compiler-dom': 3.5.17
+      '@code-inspector/core': 1.2.10
+      '@code-inspector/esbuild': 1.2.10
+      '@code-inspector/mako': 1.2.10
+      '@code-inspector/turbopack': 1.2.10
+      '@code-inspector/vite': 1.2.10
+      '@code-inspector/webpack': 1.2.10
       chalk: 4.1.1
-      dotenv: 16.6.1
-      launch-ide: 1.0.1
-      portfinder: 1.0.37
-    transitivePeerDependencies:
-      - supports-color
-
-  code-inspector-plugin@0.18.3:
-    dependencies:
-      chalk: 4.1.1
-      code-inspector-core: 0.18.3
-      dotenv: 16.6.1
-      esbuild-code-inspector-plugin: 0.18.3
-      vite-code-inspector-plugin: 0.18.3
-      webpack-code-inspector-plugin: 0.18.3
     transitivePeerDependencies:
       - supports-color
 
@@ -5358,6 +5424,10 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
+  debug@4.4.3:
+    dependencies:
+      ms: 2.1.3
+
   deep-is@0.1.4: {}
 
   define-data-property@1.1.4:
@@ -5513,12 +5583,6 @@ snapshots:
       is-callable: 1.2.7
       is-date-object: 1.1.0
       is-symbol: 1.1.1
-
-  esbuild-code-inspector-plugin@0.18.3:
-    dependencies:
-      code-inspector-core: 0.18.3
-    transitivePeerDependencies:
-      - supports-color
 
   esbuild@0.25.5:
     optionalDependencies:
@@ -6069,9 +6133,9 @@ snapshots:
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.0.8
 
-  launch-ide@1.0.1:
+  launch-ide@1.2.0:
     dependencies:
-      chalk: 4.1.1
+      chalk: 4.1.2
       dotenv: 16.6.1
 
   layout-base@1.0.2: {}
@@ -6380,10 +6444,10 @@ snapshots:
       path-data-parser: 0.1.0
       points-on-curve: 0.2.0
 
-  portfinder@1.0.37:
+  portfinder@1.0.38:
     dependencies:
       async: 3.2.6
-      debug: 4.4.1
+      debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
 
@@ -6952,12 +7016,6 @@ snapshots:
 
   uuid@11.1.0: {}
 
-  vite-code-inspector-plugin@0.18.3:
-    dependencies:
-      code-inspector-core: 0.18.3
-    transitivePeerDependencies:
-      - supports-color
-
   vite@7.0.1(@types/node@24.0.10)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1):
     dependencies:
       esbuild: 0.25.5
@@ -6991,12 +7049,6 @@ snapshots:
       vscode-languageserver-protocol: 3.17.5
 
   vscode-uri@3.0.8: {}
-
-  webpack-code-inspector-plugin@0.18.3:
-    dependencies:
-      code-inspector-core: 0.18.3
-    transitivePeerDependencies:
-      - supports-color
 
   which-boxed-primitive@1.1.1:
     dependencies:
